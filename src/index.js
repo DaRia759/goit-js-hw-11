@@ -1,5 +1,6 @@
 import fetchImages from './fetchImages';
 import Notiflix, { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
 import "simplelightbox/dist/simple-lightbox.min.css";
 import gallery from './imageList';
 
@@ -26,6 +27,8 @@ function onSubmit(e) {
     
     loadingBtn.classList.add('is-hidden');
 
+    lightbox.refresh(inputRequest);
+
     inputRequest = e.currentTarget.searchQuery.value.trim().toLowerCase();
 
     fetchImages(inputRequest, page, per_page)
@@ -34,7 +37,7 @@ function onSubmit(e) {
                 Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             } else {
                 gallery(inputRequest.hits);
-                Notiflix.Notify.info("Hooray! We found `${inputRequest.totalHits}` images.");
+                Notiflix.Notify.success("Hooray! We found `${inputRequest.totalHits}` images.");
             }
         })
         .catch(Notiflix.Notify.warning("Oooops, something went wrong! Try new request!"))
@@ -65,3 +68,9 @@ function loadMoreFunction() {
 function clearList() {
     galleryList.innerHTML = "";
 };
+
+let lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 300,
+});
+
