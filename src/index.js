@@ -21,13 +21,14 @@ input.style.fontSize = '20px';
 input.style.display = 'flex';
 input.style.justifyContent = 'space-between';
 
+loadingBtn.style.fontFamily= 'cursive';
+loadingBtn.style.fontSize = '20px';
+
 
 function onSubmit(e) {
     e.preventDefault();
     
     loadingBtn.classList.add('is-hidden');
-
-    lightbox.refresh(inputRequest);
 
     inputRequest = e.currentTarget.searchQuery.value.trim().toLowerCase();
 
@@ -45,6 +46,7 @@ function onSubmit(e) {
             clearList()
         );
     
+    lightbox.refresh(inputRequest);
 };
 
 function loadMoreFunction() {
