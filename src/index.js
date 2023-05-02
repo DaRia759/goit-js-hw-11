@@ -5,7 +5,7 @@ import gallery from './imageList';
 
 const input = document.querySelector("#search-form");
 const loadingBtn = document.querySelector(".load-more");
-const gallery = document.querySelector(".gallery");
+const galleryList = document.querySelector(".gallery");
 
 let inputRequest = "";
 let page = 1;
@@ -13,6 +13,12 @@ const per_page = 40;
 
 input.addEventListener('submit', onSubmit);
 loadingBtn.addEventListener('click', loadMoreFunction);
+
+input.style.backgroundColor = 'lightblue';
+input.style.fontFamily = "cursive";
+input.style.fontSize = '20px';
+input.style.display = 'flex';
+input.style.justifyContent = 'space-between';
 
 
 function onSubmit(e) {
@@ -23,29 +29,31 @@ function onSubmit(e) {
     inputRequest = e.currentTarget.searchQuery.value.trim().toLowerCase();
 
     fetchImages(inputRequest, page, per_page)
-        .then(({ data }) => {
-            if (data.totalHits === 0) {
+        .then((inputRequest) => {
+            if (inputRequest.totalHits === 0) {
                 Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             } else {
-                gallery(data.hits);
-                Notiflix.Notify.info("Hooray! We found `${data.totalHits}` images.");
+                gallery(inputRequest.hits);
+                Notiflix.Notify.info("Hooray! We found `${inputRequest.totalHits}` images.");
             }
         })
-        .catch(error)
+        .catch(Notiflix.Notify.warning("Oooops, something went wrong! Try new request!"))
         .finally(
             clearList()
         );
     
 };
 
-function loadMoreFunction(e) {
+function loadMoreFunction() {
     page += 1;
 
-    fetchImages(inputRequest, page, per_page)
-        .then(({ data }) => {
-            gallery(data.hits);
+    loadingBtn.classList.remove('is-hidden');
 
-            const allPages = Math.ceil(data.totalHits / per_page);
+    fetchImages(inputRequest, page, per_page)
+        .then((inputRequest) => {
+            gallery(inputRequest.hits);
+
+            const allPages = Math.ceil(inputRequest.totalHits / per_page);
 
             if (allPages > page) {
                 loadingBtn.classList.add('is-hidden');
@@ -55,5 +63,5 @@ function loadMoreFunction(e) {
 };
 
 function clearList() {
-    gallery.innerHTML = "";
+    galleryList.innerHTML = "";
 };
