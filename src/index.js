@@ -3,7 +3,7 @@ import Notiflix, { Notify } from 'notiflix';
 import "simplelightbox/dist/simple-lightbox.min.css";
 import gallery from './imageList';
 
-const input = document.querySelector(".search-form");
+const input = document.querySelector("#search-form");
 const loadingBtn = document.querySelector(".load-more");
 const gallery = document.querySelector(".gallery");
 
@@ -31,7 +31,7 @@ function onSubmit(e) {
                 Notiflix.Notify.info("Hooray! We found `${data.totalHits}` images.");
             }
         })
-        .catch(error => console.log(error))
+        .catch(error)
         .finally(
             clearList()
         );
