@@ -15,20 +15,10 @@ const per_page = 40;
 input.addEventListener('submit', onSubmit);
 loadingBtn.addEventListener('click', loadMoreFunction);
 
-input.style.backgroundColor = 'lightblue';
-input.style.fontFamily = "cursive";
-input.style.fontSize = '20px';
-input.style.display = 'flex';
-input.style.justifyContent = 'space-between';
-
-loadingBtn.style.fontFamily= 'cursive';
-loadingBtn.style.fontSize = '20px';
-
-
 function onSubmit(e) {
     e.preventDefault();
     
-    loadingBtn.classList.add('is-hidden');
+    // loadingBtn.classList.add('is-hidden');
 
     inputRequest = e.currentTarget.searchQuery.value.trim().toLowerCase();
 
@@ -40,15 +30,16 @@ function onSubmit(e) {
                 Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             } else {
                 gallery(inputRequest.hits);
-                Notiflix.Notify.success("Hooray! We found `${inputRequest.totalHits}` images.");
+                lightbox.refresh();
+                Notiflix.Notify.success(`Hooray! We found ${inputRequest.totalHits} images.`);
             }
         })
-        .catch(Notiflix.Notify.warning("Oooops, something went wrong! Try new request!"))
+        .catch(error => Notiflix.Notify.warning("Oooops, something went wrong! Try new request!"))
         .finally(
             clearList()
         );
     
-    lightbox.refresh(inputRequest);
+    
 };
 
 function loadMoreFunction() {
@@ -64,6 +55,8 @@ function loadMoreFunction() {
 
             if (allPages > page) {
                 loadingBtn.classList.add('is-hidden');
+                
+            } else {
                 Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             }
         })

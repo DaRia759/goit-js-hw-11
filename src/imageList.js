@@ -6,7 +6,7 @@ export default function gallery(images) {
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return `<a class="photo-link" href="${largeImageURL}">
         <div class="photo-card">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <img src="${webformatURL}" alt="${tags}" loading="lazy" class="img"/>
         <div class="info">
             <p class="info-item">
             <b>Likes</b>

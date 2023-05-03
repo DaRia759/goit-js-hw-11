@@ -1,0 +1,44 @@
+.load-more {
+    background-color:lightblue;
+    font-family: cursive;
+    font-size: 50px;
+    margin-left: 500px;
+    margin-top: 50px;
+}
+
+.search-form {
+    font-family: cursive;
+    line-height: 1.5;
+    font-size: 50px;
+    background-color: lightsalmon;
+    color: #2f2f37;
+   
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gallery {
+    background-color: lightseagreen;
+    border: 1px solid #777;
+}
+
+.img {
+    
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.info {
+    display: block;
+    margin-left: 600px;
+    font-size: 30px;
+}
+
+.is-hidden {
+    visibility: hidden;
+}
