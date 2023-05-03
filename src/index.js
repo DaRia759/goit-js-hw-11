@@ -26,7 +26,8 @@ function onSubmit(e) {
     
     fetchImages(inputRequest, page, per_page)
         .then((inputRequest) => {
-            if (inputRequest.totalHits === 0) {
+            if (inputRequest.totalHits === 0 || inputRequest.totalHits < 40 ) {
+                loadingBtn.classList.add('is-hidden');
                 Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             } else {
                 gallery(inputRequest.hits);
