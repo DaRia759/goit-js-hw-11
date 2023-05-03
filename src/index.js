@@ -32,6 +32,8 @@ function onSubmit(e) {
                 gallery(inputRequest.hits);
                 lightbox.refresh();
                 Notiflix.Notify.success(`Hooray! We found ${inputRequest.totalHits} images.`);
+                loadingBtn.classList.remove('is-hidden');
+
             }
         })
         .catch(error => Notiflix.Notify.warning("Oooops, something went wrong! Try new request!"))
@@ -44,8 +46,6 @@ function onSubmit(e) {
 
 function loadMoreFunction() {
     page += 1;
-
-    loadingBtn.classList.remove('is-hidden');
 
     fetchImages(inputRequest, page, per_page)
         .then((inputRequest) => {
