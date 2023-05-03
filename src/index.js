@@ -9,7 +9,7 @@ const loadingBtn = document.querySelector(".load-more");
 const galleryList = document.querySelector(".gallery");
 
 let inputRequest = "";
-let page = 1;
+let page = 0;
 const per_page = 40;
 
 input.addEventListener('submit', onSubmit);
@@ -32,6 +32,8 @@ function onSubmit(e) {
 
     inputRequest = e.currentTarget.searchQuery.value.trim().toLowerCase();
 
+    page = 1;
+    
     fetchImages(inputRequest, page, per_page)
         .then((inputRequest) => {
             if (inputRequest.totalHits === 0) {
